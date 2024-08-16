@@ -55,8 +55,6 @@ class Server:
         (start_index, end_index) = index_range(page, page_size)
         server = Server()
         data: List[List] = server.dataset()
-        res: List[List] = []
         if end_index > len(data):
-            return res
-        res.append(data[start_index:end_index])
-        return res
+            return []
+        return data[start_index:end_index]
