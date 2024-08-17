@@ -64,7 +64,8 @@ class Server:
             page: current page number
             page_size: size of each page from available data
         Returns: a dictionary containing the follwoing key-value pairs
-            page_size: the length of the returned dataset page
+            page_size: the length of the returned dataset page/ length
+            of each chunk in which dataset is divided
             page: the current page number
             data: the dataset page
             next_page: number of the next page, None if no next page
@@ -76,12 +77,10 @@ class Server:
         total_pages = math.ceil(len(self.dataset()) / page_size)
         data = self.get_page(page, page_size)
         data_page_size = len(data)
-        next_page = page + data_page_size
-        if next_page > total_pages or next_page == page:
+        next_page = page + 1
+        if next_page > total_pages: 
             next_page = None
         prev_page = page - 1 if page > 1 else None
-        if prev_page == page:
-            prev_page = None
         return {
             'page_size': data_page_size,
             'page': page,
