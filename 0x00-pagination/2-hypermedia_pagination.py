@@ -78,7 +78,7 @@ class Server:
         data = self.get_page(page, page_size)
         data_page_size = len(data)
         next_page = page + 1
-        if next_page > total_pages: 
+        if next_page > total_pages:
             next_page = None
         prev_page = page - 1 if page > 1 else None
         return {
