@@ -14,7 +14,7 @@ class MRUCache(BaseCaching):
 
     def __init__(self) -> None:
         super().__init__()
-        self.lru_counter = Counter()
+        self.mru_counter = Counter()
 
     def put(self, key, item):
         """
@@ -32,21 +32,21 @@ class MRUCache(BaseCaching):
             self.cache_data[key] = item
             if len(self.cache_data) > self.MAX_ITEMS:
                 mru_key, max_rank = None, float('-inf')
-                for keyC, val in self.lru_counter.items():
+                for keyC, val in self.mru_counter.items():
                     if val > max_rank:
                         max_rank = val
                         mru_key = keyC
                 del self.cache_data[mru_key]
-                del self.lru_counter[mru_key]
+                del self.mru_counter[mru_key]
                 print(f'DISCARD: {mru_key}')
-            if len(self.lru_counter) > 0:
-                max_rank = max(self.lru_counter.values())
-                self.lru_counter[key] = max_rank + 1
+            if len(self.mru_counter) > 0:
+                max_rank = max(self.mru_counter.values())
+                self.mru_counter[key] = max_rank + 1
             else:
-                self.lru_counter[key] = 0
+                self.mru_counter[key] = 0
         # print(f'after putting {key}')
         # print(f'curr-cache---> {self.cache_data.items()}')
-        # print(f'curr-cache-counter---> {self.lru_counter.items()}')
+        # print(f'curr-cache-counter---> {self.mru_counter.items()}')
 
     def get(self, key):
         """
@@ -57,6 +57,6 @@ class MRUCache(BaseCaching):
         # print(f'get {key}')
         res = self.cache_data.get(key)
         if res:
-            recent_count = max(self.lru_counter.values())
-            self.lru_counter[key] = recent_count + 1
+            recent_count = max(self.mru_counter.values())
+            self.mru_counter[key] = recent_count + 1
         return res
