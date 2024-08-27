@@ -2,12 +2,20 @@
 """
 basic flask with babel setup
 """
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_babel import Babel
 
+
+def get_locale() -> str:
+    """
+    return locale language
+    """
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
 app = Flask(__name__)
-app.config.from_pyfile('babel.cfg')
 babel = Babel(app)
+babel.locale_selector_func = get_locale
 
 
 @app.route('/')

@@ -15,6 +15,8 @@ Resources
 - [Flask i18n tutorial](https://alx-intranet.hbtn.io/rltoken/RtGz7pI7TKnYqrMMG9rWMg "Flask i18n tutorial")
 - [pytz](https://alx-intranet.hbtn.io/rltoken/mzgaTYJUvmamm7kH7RtEcQ "pytz")
 
+- [Flask-Babel 4.0.0 documentation](https://python-babel.github.io/flask-babel/#configuration)
+
 Learning Objectives
 -------------------
 
