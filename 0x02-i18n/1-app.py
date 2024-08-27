@@ -16,9 +16,8 @@ class Config:
 
 
 app = Flask(__name__)
-app.config.from_object(Config)
 babel = Babel(app)
-
+app.config.from_object(Config)
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def hello_world() -> str:
