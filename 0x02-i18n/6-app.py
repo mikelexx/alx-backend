@@ -67,10 +67,14 @@ def get_locale() -> str:
     url_locale = request.args.get('locale')
     if url_locale in support_locales:
         return url_locale
-    settings_locale = g.user.get('locale')
+    settings_locale = g.user.get('locale') if g.user else None
     if settings_locale in app.config['LANGUAGES']:
         return settings_locale
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    request_header_locale = request.accept_languages.best_match(
+        app.config['LANGUAGES'])
+    if request_header_locale:
+        return request_header_locale
+    return app.config['BABEL_DEFAULT_LOCALE']
 
 
 @app.before_request
