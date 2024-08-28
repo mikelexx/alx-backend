@@ -2,6 +2,7 @@
 """
 basic flask with babel setup
 """
+from typing import Union
 from flask import Flask, render_template, request, g
 from flask_babel import Babel, _, force_locale
 
@@ -42,7 +43,7 @@ users = {
 }
 
 
-def get_user():
+def get_user() -> Union[dict, None]:
     """
     get loged in user from database
     """
@@ -78,7 +79,7 @@ def get_locale() -> str:
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """
     executed before all other functions
     """
