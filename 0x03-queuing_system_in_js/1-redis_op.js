@@ -4,20 +4,25 @@ client.on('connect', ()=>{
  console.log('Redis client connected to the server');
 })
 client.on('error', (err)=>console.log(`Redis client not connected to the server: ${err}`));
-client.connect();
 function setNewSchool(schoolName, value){
-  if(client.isOpen){
-    client.set(schoolName, value).then(msg=>{
-      console.log(`Reply: ${msg}`);
-    }).catch(err=>console.log(`Error in setting redis key val: ${err}`));
-  }
+  client.set(schoolName, value, (err, reply)=>{
+    if(err){
+      console.log(`Error in setting redis key val: ${err}`);
+    }
+    else{
+      console.log(`Reply: ${reply}`);
+    }
+  })
 }
 function displaySchoolValue(schoolName){
-  if(client.isOpen){
-    client.get(schoolName).then(msg=>{
-      console.log(msg);
-    }).catch(err=>console.log(`displaySchoolValue got error in retrieving key val  using clientInstance: ${err}`));
-  }
+  client.get(schoolName,(err, value)=>{
+    if (err){
+console.log(`displaySchoolValue got error in retrieving key val  using redis clientInstance: ${err}`);
+    }
+    else{
+      console.log(value);
+    }
+  })
 }
 displaySchoolValue('Holberton');
 setNewSchool('HolbertonSanFrancisco', '100');
