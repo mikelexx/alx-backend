@@ -1,4 +1,4 @@
-import {kue} from 'kue';
+const kue = require('kue');
 const queue = kue.createQueue();
 queue.on('error', (err)=>{
   console.log(`error connecting with redis server: ${err}`);
